@@ -2,6 +2,7 @@
 ## Author : Yap Pow Look
 ## Date : 12 Apr 2015
 
+library(sqldf)
 library(dplyr)
 library(lubridate)
 setInternet2(use = TRUE)
@@ -22,8 +23,8 @@ path <- getwd()
 
 
 ## ----- This segment reads the file in the R table
-household <- subset(read.table("./dataset/household_power_consumption.txt",header = TRUE,sep=";",colClasses="character",nrows=70000),Date == "1/2/2007" | Date == "2/2/2007")
-
+## Use the read.csv.sql command to filter the required data. Reading on the first 70000 rows as reading 1.5mlines will take a long time
+household <- read.csv.sql("./dataset/household_power_consumption.txt",header = TRUE, sep=";",colClasses="character",nrows=70000,sql="select * from file where Date = '1/2/2007' or Date = '2/2/2007'")
 
 ## Plot 4 - Plotting 4 graphs in a page
 household$Date <- dmy_hms(paste(household$Date,household$Time))
