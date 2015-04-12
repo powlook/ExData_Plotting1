@@ -23,6 +23,7 @@ path <- getwd()
 
 
 ## ----- This segment reads the file in the R table
+## Only reads the first 70,000 rows since 2007/01/01 & 02 are within those rows. After that,then subset. It will reduce the loading time.
 household <- subset(read.table("./dataset/household_power_consumption.txt",header = TRUE,sep=";",colClasses="character",nrows=70000),Date == "1/2/2007" | Date == "2/2/2007")
 
 
